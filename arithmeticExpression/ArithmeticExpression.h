@@ -5,7 +5,7 @@
 #ifndef STACK_ARITHMETICEXPRESSION_H
 #define STACK_ARITHMETICEXPRESSION_H
 
-#include "List.hpp"
+#include "../dataStructure/List.hpp"
 
 class ArithmeticExpression {
 public:

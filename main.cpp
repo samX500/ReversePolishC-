@@ -1,9 +1,10 @@
 #include <iostream>
-#include "Stack.hpp"
-#include "List.hpp"
-#include "Opperator.h"
-#include "Number.h"
-#include "Function.h"
+#include "dataStructure/Stack.hpp"
+#include "dataStructure/List.hpp"
+#include "arithmeticExpression/Opperator.h"
+#include "arithmeticExpression/Number.h"
+#include "arithmeticExpression/Function.h"
+#include "stringParsing/StringToEquation.h"
 #include <stdexcept>
 #include <cmath>
 
@@ -351,7 +352,11 @@ void givenAnOpperatorWithOpperatorParameter_whenGettingValue_thenShouldRecursiva
         std::cout << "givenAnOpperatorWithOpperatorParameter_whenGettingValue_thenShouldRecursivalyApplyAllGivenOpperatorToNumbers HAS FAILED" << std::endl;
 
 }
-//Lambda exemple: [](int lhs,int rhs){return lhs + rhs;}
+
+void givenOneOpperator_whenGettingIndexOfLowestPriorityOpperator_thenShouldReturnIndexOfSoleOpperator(){
+    StringToEquation* stringParser = new StringToEquation();
+
+}
 
 
 
