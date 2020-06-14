@@ -14,7 +14,7 @@ class Function : public ArithmeticExpression {
     ArithmeticExpression* content;
 
 public:
-    Function(std::function<double(double)> function,
+    Function(std::function<double(double)>&& function,
              ArithmeticExpression* content) {
         this->function= function;
         this->content = content;

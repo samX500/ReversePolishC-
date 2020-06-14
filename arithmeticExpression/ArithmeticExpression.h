@@ -5,8 +5,6 @@
 #ifndef STACK_ARITHMETICEXPRESSION_H
 #define STACK_ARITHMETICEXPRESSION_H
 
-#include "../dataStructure/List.hpp"
-
 class ArithmeticExpression {
 public:
     virtual double getValue()=0;

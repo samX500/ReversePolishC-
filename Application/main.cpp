@@ -1,14 +1,18 @@
 #include <iostream>
-#include "dataStructure/Stack.hpp"
-#include "dataStructure/List.hpp"
-#include "arithmeticExpression/Opperator.h"
-#include "arithmeticExpression/Number.h"
-#include "arithmeticExpression/Function.h"
-#include "stringParsing/StringToEquation.h"
+#include "../dataStructure/Stack.hpp"
+#include "../dataStructure/List.hpp"
+#include "../arithmeticExpression/Opperator.h"
+#include "../arithmeticExpression/Number.h"
+#include "../arithmeticExpression/Function.h"
+#include "../stringParsing/NormalEquationFormat/NormalEquationFormat.h"
+#include "../stringParsing/EquationParserFactory.h"
+#include "../stringParsing/NormalEquationFormat/NormalEquationFormatParser.h"
 #include <stdexcept>
 #include <cmath>
 
 const int A_NUMBER = 5;
+
+//STACK TEST
 
 void givenEmptyStack_whenPopingItem_thenShouldThrow() {
     Stack<int> stack = Stack<int>();
@@ -72,6 +76,8 @@ void givenNonEmptyStack_whenClearing_thenShouldBeEmpty() {
     else
         std::cout << "givenNonEmptyStack_whenClearing_thenShouldBeEmpty HAS FAILED" << std::endl;
 }
+
+//LIST TEST
 
 void givenEmptyList_whenAdding_thenLastItemShouldBeSameItem() {
     List<int> list = List<int>();
@@ -285,6 +291,35 @@ void givenNonEmptyList_whenRemovingNegativeIndex_thenShouldGetItemFromEnd(){
         std::cout << "givenNonEmptyList_whenRemovingNegativeIndex_thenShouldGetItemFromEnd HAS FAILED" << std::endl;
 }
 
+void givenListContainingAnItem_whenCheckingIfListContainsAnItem_thenShouldBeTrue(){
+    List<int> list = List<int>();
+    int AN_ITEM = A_NUMBER;
+    list.add(AN_ITEM);
+
+    bool doesContain = list.contains(A_NUMBER);
+
+    if(doesContain)
+        std::cout << "givenListContainingAnItem_whenCheckingIfListContainsAnItem_thenShouldBeTrue has passed" << std::endl;
+    else
+        std::cout << "givenListContainingAnItem_whenCheckingIfListContainsAnItem_thenShouldBeTrue HAS FAILED" << std::endl;
+}
+
+void givenListNotContainingAnItem_whenCheckingIfListContainsAnItem_thenShouldBeTrue(){
+    List<int> list = List<int>();
+    list.add(0);
+    list.add(1);
+    list.add(3);
+    list.add(4);
+
+    bool doesContain = list.contains(A_NUMBER);
+
+    if(!doesContain)
+        std::cout << "givenListContainingAnItem_whenCheckingIfListContainsAnItem_thenShouldBeTrue has passed" << std::endl;
+    else
+        std::cout << "givenListContainingAnItem_whenCheckingIfListContainsAnItem_thenShouldBeTrue HAS FAILED" << std::endl;
+}
+//ARITHEMETIC EXPPRESSION TEST
+
 void givenANumber_whenGettingValue_thenShouldGetSameNumber(){
     ArithmeticExpression* ANumber = new Number(A_NUMBER);
 
@@ -353,12 +388,72 @@ void givenAnOpperatorWithOpperatorParameter_whenGettingValue_thenShouldRecursiva
 
 }
 
-void givenOneOpperator_whenGettingIndexOfLowestPriorityOpperator_thenShouldReturnIndexOfSoleOpperator(){
-    StringToEquation* stringParser = new StringToEquation();
+//PARSING TEST
+
+void givenOneAddition_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfOpperator(){
+    std::string equation = "3+5";
+    NormalEquationFormatParser parser = NormalEquationFormatParser();
+
+    int indexOfOpperator = parser.getLowestPriorityOpperator(equation);
+
+    if(indexOfOpperator == 1)
+        std::cout << "givenOneAddition_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfOpperator has passed" << std::endl;
+    else
+        std::cout << "givenOneAddition_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfOpperator HAS FAILED" << std::endl;
 
 }
 
+void givenMultipleAddition_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfFirstOpperator(){
+    std::string equation = "3+5+8";
+    NormalEquationFormatParser parser = NormalEquationFormatParser();
 
+    int indexOfOpperator = parser.getLowestPriorityOpperator(equation);
+
+    if(indexOfOpperator == 1)
+        std::cout << "givenMultipleAddition_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfFirstOpperator has passed" << std::endl;
+    else
+        std::cout << "givenMultipleAddition_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfFirstOpperator HAS FAILED" << std::endl;
+
+}
+
+void givenOpperatorOfDifferentPriority_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfLowestPriorityOpperator(){
+    std::string equation = "3*5+8";
+    NormalEquationFormatParser parser = NormalEquationFormatParser();
+
+    int indexOfOpperator = parser.getLowestPriorityOpperator(equation);
+
+    if(indexOfOpperator == 3)
+        std::cout << "givenOpperatorOfDifferentPriority_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfLowestPriorityOpperator has passed" << std::endl;
+    else
+        std::cout << "givenOpperatorOfDifferentPriority_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfLowestPriorityOpperator HAS FAILED" << std::endl;
+
+}
+
+void givenEquationWithFunction_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfOpperatorOutsideOfFunction(){
+    std::string equation = "sin(5+3)*6";
+    NormalEquationFormatParser parser = NormalEquationFormatParser();
+
+    int indexOfOpperator = parser.getLowestPriorityOpperator(equation);
+
+    if(indexOfOpperator == 8)
+        std::cout << "givenEquationWithFunction_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfOpperatorOutsideOfFunction has passed" << std::endl;
+    else
+        std::cout << "givenEquationWithFunction_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfOpperatorOutsideOfFunction HAS FAILED" << std::endl;
+
+}
+
+void givenEquationWithNoOpperatorOutsideFunction_whenGettingLowestPriorityOpperator_thenShouldGetNegative1(){
+    std::string equation = "(sin(5+3)*6)";
+    NormalEquationFormatParser parser = NormalEquationFormatParser();
+
+    int indexOfOpperator = parser.getLowestPriorityOpperator(equation);
+
+    if(indexOfOpperator == -1)
+        std::cout << "givenEquationWithFunction_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfOpperatorOutsideOfFunction has passed" << std::endl;
+    else
+        std::cout << "givenEquationWithFunction_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfOpperatorOutsideOfFunction HAS FAILED" << std::endl;
+
+}
 
 void runAllTest() {
     std::cout<<"Stack Test"<<std::endl;
@@ -384,7 +479,8 @@ void runAllTest() {
     givenNonEmptyList_whenRemovingNegativeIndexOutOfBound_thenShouldThrow();
     givenNonEmptyList_whenRemovingPositiveIndex_thenShouldGetItemFromStart();
     givenNonEmptyList_whenRemovingNegativeIndex_thenShouldGetItemFromEnd();
-    givenNonEmptyList_whenRemovingNegativeIndex_thenShouldGetItemFromEnd();
+    givenListContainingAnItem_whenCheckingIfListContainsAnItem_thenShouldBeTrue();
+    givenListNotContainingAnItem_whenCheckingIfListContainsAnItem_thenShouldBeTrue();
 
     std::cout<<"ArithmeticExpression Test"<<std::endl;
     givenANumber_whenGettingValue_thenShouldGetSameNumber();
@@ -392,6 +488,14 @@ void runAllTest() {
     givenAFunctionWithFunctionParameter_whenGettingValue_thenShouldRecursivelyEvaluateAllGivenFunction();
     givenAnOpperatorWithNumberParameter_whenGettingValue_thenShouldApplyGivenOpperatorToNumbers();
     givenAnOpperatorWithOpperatorParameter_whenGettingValue_thenShouldRecursivalyApplyAllGivenOpperatorToNumbers();
+
+    std::cout<<"NormalEquationParser Test"<<std::endl;
+    givenOneAddition_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfOpperator();
+    givenMultipleAddition_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfFirstOpperator();
+    givenOpperatorOfDifferentPriority_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfLowestPriorityOpperator();
+    givenEquationWithFunction_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfOpperatorOutsideOfFunction();
+    givenEquationWithNoOpperatorOutsideFunction_whenGettingLowestPriorityOpperator_thenShouldGetNegative1();
+
 }
 
 

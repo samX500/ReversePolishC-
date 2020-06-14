@@ -7,10 +7,14 @@
 
 
 #include <string>
+#include "Calculator.h"
 
-class ReversePolishCalculator {
+class ReversePolishCalculator: public Calculator {
 
-
+public:
+    double evaluate(std::string equation) override{
+        return 0;
+    }
 
 };
 

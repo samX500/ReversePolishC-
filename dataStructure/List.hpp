@@ -172,6 +172,18 @@ public:
         else
             return removeNegativeIndex(index);
     }
+
+public:
+    bool contains(T item){
+        Node* currentNode = head->next;
+        while(currentNode->previous != nullptr)
+        {
+            if(currentNode->data == item)
+                return true;
+        }
+
+        return false;
+    }
 };
 
 
