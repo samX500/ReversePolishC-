@@ -35,17 +35,17 @@ private:
 
 public:
     bool isOpeningBracket(std::string character){
-        return std::find(OPENING_BRACKET.begin(), OPENING_BRACKET.end(), character) != OPENING_BRACKET.end();
+        return std::find(std::begin(OPENING_BRACKET), std::end(OPENING_BRACKET), character) != std::end(OPENING_BRACKET);;
     }
 
 public:
     bool isClosingBracket(std::string character){
-        return std::find(CLOSING_BRACKET.begin(), CLOSING_BRACKET.end(), character) != OPENING_BRACKET.end();
+         return std::find(std::begin(CLOSING_BRACKET), std::end(CLOSING_BRACKET), character) != std::end(CLOSING_BRACKET);
     }
 
 public:
     bool isOpperator(std::string character){
-        return OPPERATOR_PRIORITY.find(character)==OPPERATOR_PRIORITY.end();
+        return OPPERATOR_PRIORITY.find(character)!=OPPERATOR_PRIORITY.end();
     }
 
 public:

@@ -294,6 +294,10 @@ void givenNonEmptyList_whenRemovingNegativeIndex_thenShouldGetItemFromEnd(){
 void givenListContainingAnItem_whenCheckingIfListContainsAnItem_thenShouldBeTrue(){
     List<int> list = List<int>();
     int AN_ITEM = A_NUMBER;
+    list.add(0);
+    list.add(1);
+    list.add(3);
+    list.add(4);
     list.add(AN_ITEM);
 
     bool doesContain = list.contains(A_NUMBER);
@@ -456,14 +460,14 @@ void givenEquationWithNoOpperatorOutsideFunction_whenGettingLowestPriorityOppera
 }
 
 void runAllTest() {
-    std::cout<<"Stack Test"<<std::endl;
+    std::cout<<"\nStack Test"<<std::endl;
     givenEmptyStack_whenPopingItem_thenShouldThrow();
     givenEmptyStack_whenPuttingItem_thenShouldPopSameItem();
     givenEmptyStack_whenGettingSize_thenShouldBe0();
     givenNonEmptyStack_whenGettingSize_thenShouldBeNumberOfItem();
     givenNonEmptyStack_whenClearing_thenShouldBeEmpty();
 
-    std::cout<<"List Test"<<std::endl;
+    std::cout<<"\nList Test"<<std::endl;
     givenEmptyList_whenAdding_thenLastItemShouldBeSameItem();
     givenEmptyList_whenGetting_thenShouldThrow();
     givenNonEmptyList_whenGettingPositiveIndexOutOfBound_thenShouldThrow();
@@ -482,14 +486,14 @@ void runAllTest() {
     givenListContainingAnItem_whenCheckingIfListContainsAnItem_thenShouldBeTrue();
     givenListNotContainingAnItem_whenCheckingIfListContainsAnItem_thenShouldBeTrue();
 
-    std::cout<<"ArithmeticExpression Test"<<std::endl;
+    std::cout<<"\nArithmeticExpression Test"<<std::endl;
     givenANumber_whenGettingValue_thenShouldGetSameNumber();
     givenAFunctionWithNumberParameter_whenGettingValue_thenShouldEvaluateNumberWithGivenFunction();
     givenAFunctionWithFunctionParameter_whenGettingValue_thenShouldRecursivelyEvaluateAllGivenFunction();
     givenAnOpperatorWithNumberParameter_whenGettingValue_thenShouldApplyGivenOpperatorToNumbers();
     givenAnOpperatorWithOpperatorParameter_whenGettingValue_thenShouldRecursivalyApplyAllGivenOpperatorToNumbers();
 
-    std::cout<<"NormalEquationParser Test"<<std::endl;
+    std::cout<<"\nNormalEquationParser Test"<<std::endl;
     givenOneAddition_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfOpperator();
     givenMultipleAddition_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfFirstOpperator();
     givenOpperatorOfDifferentPriority_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfLowestPriorityOpperator();

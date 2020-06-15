@@ -176,10 +176,12 @@ public:
 public:
     bool contains(T item){
         Node* currentNode = head->next;
-        while(currentNode->previous != nullptr)
+        while(currentNode->next != nullptr)
         {
             if(currentNode->data == item)
                 return true;
+            else
+                currentNode = currentNode->next;
         }
 
         return false;
