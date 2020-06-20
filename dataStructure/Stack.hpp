@@ -40,7 +40,7 @@ public:
         T currentItem = top->data;
         Node* previousTop = top;
         top = top->previous;
-        delete(previousTop);
+        delete previousTop;
         size--;
 
         return currentItem;
