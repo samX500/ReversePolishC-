@@ -10,8 +10,9 @@
 #include "../../dataStructure/List.hpp"
 #include "NormalEquationIdentifier.h"
 #include "../../Utility/TwoSidedEquationAsString.h"
+#include "../Equation.h"
 
-class EquationNormalFormat {
+class EquationNormalFormat: public Equation {
 
     std::string equation;
     NormalEquationIdentifier identifier;
@@ -29,7 +30,7 @@ public:
     }
 
 public:
-    int getLowestPriorityOpperatorIndex() {
+    int getLowestPriorityOpperatorIndex()override {
         List<int> indexOfElementInsideFunction = getIndexOfOpperatorInsideFunction();
         int currentLowestPriorityOpperator = -1;
         int currentPriority = identifier.HIGHEST_PRIORITY;
@@ -66,12 +67,12 @@ private:
     }
 
 public:
-    bool hasLowPriorityOpperator() {
+    bool hasLowPriorityOpperator() override{
         return getLowestPriorityOpperatorIndex() >= 0;
     }
 
 public:
-    TwoSidedEquationAsString cutOnLowestPriorityOpperator() {
+    TwoSidedEquationAsString cutOnLowestPriorityOpperator()override {
         int indexOfLowestPriorityOpperator = getLowestPriorityOpperatorIndex();
         if (indexOfLowestPriorityOpperator < 0)
             throw std::invalid_argument("Equation has no low priority opperator to cut on");
@@ -81,7 +82,7 @@ public:
     }
 
 public:
-    std::string getLowestPriorityOpperator() {
+    std::string getLowestPriorityOpperator()override {
         int indexOfLowestPriorityOpperator = getLowestPriorityOpperatorIndex();
         if (indexOfLowestPriorityOpperator < 0)
             return "";
@@ -90,12 +91,12 @@ public:
 
 
 public:
-    bool isAFunction() {
+    bool isAFunction() override{
         return !hasLowPriorityOpperator() && identifier.isClosingBracket(getCharAt(equation.size() - 1));
     }
 
 public:
-    std::string getFunction() {
+    std::string getFunction()override {
         if (!isAFunction())
             throw std::invalid_argument("Cannot call getFunction on an equation that is not a function");
 
@@ -111,7 +112,7 @@ public:
     }
 
 public:
-    std::string getFunctionInside() {
+    std::string getFunctionInside()override {
         if (!isAFunction())
             throw std::invalid_argument("Cannot call getFunction on an equation that is not a function");
 
@@ -126,6 +127,18 @@ private:
                 return i;
         }
         throw std::invalid_argument("Cannot call getFunction on an equation that is not a function");
+    }
+
+public:
+    bool isANumber() override{
+        //TODO not yet implemented
+        return false;
+    }
+
+public:
+    int getNumber() override {
+        //TODO not yet implemented
+        return 0;
     }
 
 public:

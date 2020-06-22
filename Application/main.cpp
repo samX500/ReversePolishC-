@@ -4,9 +4,7 @@
 #include "../arithmeticExpression/Opperator.h"
 #include "../arithmeticExpression/Number.h"
 #include "../arithmeticExpression/Function.h"
-#include "../stringParsing/NormalEquationFormat/NormalEquationFormat.h"
-#include "../stringParsing/EquationParserFactory.h"
-#include "../stringParsing/NormalEquationFormat/EquationNormalFormat.h"
+#include "../Equation/NormalEquationFormat/EquationNormalFormat.h"
 #include <stdexcept>
 #include <cmath>
 

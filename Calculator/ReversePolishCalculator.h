@@ -8,13 +8,21 @@
 
 #include <string>
 #include "Calculator.h"
+#include "../Equation//NormalEquationFormat/NormalEquationIdentifier.h"
 
 class ReversePolishCalculator: public Calculator {
+
+    NormalEquationIdentifier identifier;
+
+public: ReversePolishCalculator(){
+    identifier = NormalEquationIdentifier();
+}
 
 public:
     double evaluate(std::string equation) override{
         return 0;
     }
+
 
 };
 
