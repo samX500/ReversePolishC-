@@ -11,6 +11,7 @@
 #include "../Utility/TwoSidedEquationAsString.h"
 
 class Equation {
+public:
     virtual int getLowestPriorityOpperatorIndex()=0;
     virtual bool hasLowPriorityOpperator()=0;
     virtual TwoSidedEquationAsString cutOnLowestPriorityOpperator()=0;
@@ -19,7 +20,7 @@ class Equation {
     virtual std::string getFunction()=0;
     virtual std::string getFunctionInside()=0;
     virtual bool isANumber()=0;
-    virtual int getNumber()=0;
+    virtual double getNumber()=0;
 };
 
 

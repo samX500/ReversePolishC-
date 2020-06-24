@@ -11,6 +11,7 @@
 #include "ReversePolishCalculator.h"
 
 class CalculatorFactory {
+public:
     enum CalculatorType {REVERSE_POLISH};
 
 public:

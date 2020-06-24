@@ -5,6 +5,8 @@
 #include "../arithmeticExpression/Number.h"
 #include "../arithmeticExpression/Function.h"
 #include "../Equation/NormalEquationFormat/EquationNormalFormat.h"
+#include "../Calculator/Calculator.h"
+#include "../Calculator/CalculatorFactory.h"
 #include <stdexcept>
 #include <cmath>
 
@@ -417,6 +419,16 @@ void givenAnOpperatorWithOpperatorParameter_whenGettingValue_thenShouldRecursiva
 
 //PARSING TEST
 
+void givenEmptyString_whenInstantialisingEquation_thenShouldRaise(){
+    try {
+        EquationNormalFormat equation =  EquationNormalFormat("");
+    } catch (const std::invalid_argument &e) {
+        std::cout << "givenEmptyString_whenInstantialisingEquation_thenShouldRaise has passed" << std::endl;
+        return;
+    }
+    std::cout << "givenEmptyString_whenInstantialisingEquation_thenShouldRaise has FAILED" << std::endl;
+}
+
 void givenOneAddition_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfOpperator() {
     std::string equationString = "3+5";
     EquationNormalFormat equation = EquationNormalFormat(equationString);
@@ -742,7 +754,6 @@ void givenOneFunction_whenGettingFunctionInside_thenShouldGetSubstringBetweenBra
     EquationNormalFormat equation = EquationNormalFormat(equationString);
 
     std::string functionInside = equation.getFunctionInside();
-    std::cout << functionInside<<std::endl;
     if (functionInside=="90+90")
         std::cout << "givenOneFunction_whenGettingFunctionInside_thenShouldGetSubstringBetweenBracket has passed" << std::endl;
     else
@@ -777,6 +788,59 @@ void givenNotAFunction_whenGettingFunctionInside_thenShouldRaise(){
     }
 
     std::cout << "givenNotAFunction_whenGettingFunctionInside_thenShouldRaise HAS FAILED" << std::endl;
+}
+
+void givenANumber_whenCheckingIsANumber_thenShouldBeTrue(){
+    std::string equationString = "55";
+    EquationNormalFormat equation = EquationNormalFormat(equationString);
+
+    bool functionInside = equation.isANumber();
+
+    if (functionInside)
+        std::cout << "givenANumber_whenCheckingIsANumber_thenShouldBeTrue has passed" << std::endl;
+    else
+        std::cout << "givenANumber_whenCheckingIsANumber_thenShouldBeTrue HAS FAILED" << std::endl;
+
+}
+
+void givenNotANumber_whenCheckingIsANumber_thenShouldBeFalse(){
+    std::string equationString = "5+5";
+    EquationNormalFormat equation = EquationNormalFormat(equationString);
+
+    bool isANumber = equation.isANumber();
+
+    if (!isANumber)
+        std::cout << "givenNotANumber_whenCheckingIsANumber_thenShouldBeFalse has passed" << std::endl;
+    else
+        std::cout << "givenNotANumber_whenCheckingIsANumber_thenShouldBeFalse HAS FAILED" << std::endl;
+
+}
+
+void givenANumber_whenGettingNumber_thenShouldGetThatNumberAsInt(){
+    std::string equationString = "55";
+    EquationNormalFormat equation = EquationNormalFormat(equationString);
+
+    int number = equation.getNumber();
+
+    if (number==55)
+        std::cout << "givenANumber_whenGettingNumber_thenShouldGetThatNumberAsInt has passed" << std::endl;
+    else
+        std::cout << "givenANumber_whenGettingNumber_thenShouldGetThatNumberAsInt HAS FAILED" << std::endl;
+}
+
+void givenNotANumber_whenGettingNumber_thenShouldRaise(){
+    std::string equationString = "5+5";
+    EquationNormalFormat equation = EquationNormalFormat(equationString);
+
+    try{
+        int number = equation.getNumber();
+    }
+    catch(std::invalid_argument &e){
+        std::cout << "givenNotANumber_whenGettingNumber_thenShouldRaise has passed" << std::endl;
+        return;
+    }
+
+    std::cout << "givenNotANumber_whenGettingNumber_thenShouldRaise HAS FAILED" << std::endl;
 }
 
 void runAllTest() {
@@ -814,6 +878,7 @@ void runAllTest() {
     givenAnOpperatorWithOpperatorParameter_whenGettingValue_thenShouldRecursivalyApplyAllGivenOpperatorToNumbers();
 
     std::cout << "\nNormalEquationParser Test" << std::endl;
+    givenEmptyString_whenInstantialisingEquation_thenShouldRaise();
     givenOneAddition_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfOpperator();
     givenMultipleAddition_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfFirstOpperator();
     givenOpperatorOfDifferentPriority_whenGettingLowestPriorityOpperator_thenShouldGetIndexOfLowestPriorityOpperator();
@@ -840,11 +905,19 @@ void runAllTest() {
     givenOneFunction_whenGettingFunctionInside_thenShouldGetSubstringBetweenBracket();
     givenManyFunction_whenGettingFunctionInside_thenShouldRaise();
     givenNotAFunction_whenGettingFunctionInside_thenShouldRaise();
+    givenANumber_whenCheckingIsANumber_thenShouldBeTrue();
+    givenNotANumber_whenCheckingIsANumber_thenShouldBeFalse();
+    givenANumber_whenGettingNumber_thenShouldGetThatNumberAsInt();
+    givenNotANumber_whenGettingNumber_thenShouldRaise();
 }
 
 
 int main() {
-    runAllTest();
+    //runAllTest();
 
+    CalculatorFactory factory = CalculatorFactory();
+    Calculator* calculator = factory.getCalculator(CalculatorFactory::REVERSE_POLISH);
+    double result = calculator->evaluate("sin(180+90)+log(2-1)");
+    std::cout << result << std::endl;
     return 0;
 }

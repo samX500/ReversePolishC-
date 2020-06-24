@@ -19,6 +19,9 @@ class EquationNormalFormat: public Equation {
 
 public:
     EquationNormalFormat(std::string equation) {
+        if(equation.empty())
+            throw std::invalid_argument("can't instantialise empty equation");
+
         this->equation = equation;
         identifier = NormalEquationIdentifier();
 
@@ -131,14 +134,15 @@ private:
 
 public:
     bool isANumber() override{
-        //TODO not yet implemented
-        return false;
+        return !hasLowPriorityOpperator()&&!isAFunction();
     }
 
 public:
-    int getNumber() override {
-        //TODO not yet implemented
-        return 0;
+    double getNumber() override {
+       if(!isANumber())
+           throw std::invalid_argument("Can't getNumber on a non-number equation");
+
+       return std::stod(equation);
     }
 
 public:
