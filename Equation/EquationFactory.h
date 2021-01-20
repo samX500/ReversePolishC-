@@ -19,7 +19,7 @@ public:
             case NORMAL:
                 return new EquationNormalFormat(equation);
 
-            default: throw std::invalid_argument("cute little anime girl");
+            default: throw std::invalid_argument("not an equation format");
         }
     }
 };

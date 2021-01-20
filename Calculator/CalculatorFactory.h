@@ -20,7 +20,7 @@ public:
             case REVERSE_POLISH:
                 return new ReversePolishCalculator();
 
-            default: throw std::invalid_argument("cute little anime girl");
+            default: throw std::invalid_argument("This calculator type does not exist");
         }
     }
 
